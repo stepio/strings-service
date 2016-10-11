@@ -34,7 +34,15 @@ public class LongestWordPairTest {
         assertThat(new LongestWordPair(null, "").getLongestWord()).isEqualTo(0);
         assertThat(new LongestWordPair(null, "hello").getLongestWord()).isEqualTo(5);
         assertThat(new LongestWordPair(null, "surprise").getLongestWord()).isEqualTo(8);
-        assertThat(new LongestWordPair(null, "You'll").getLongestWord()).isEqualTo(6);
+        assertThat(new LongestWordPair(null, "You're").getLongestWord()).isEqualTo(6);
         assertThat(new LongestWordPair(null, "WONDERFUL").getLongestWord()).isEqualTo(9);
+    }
+
+    @Test
+    public void toString_withConstructor() throws Exception {
+        assertThat(new LongestWordPair(null, null).toString()).isNotEmpty();
+        assertThat(new LongestWordPair(null, "").toString()).isNotEmpty();
+        assertThat(new LongestWordPair("hello", "surprise").toString()).contains("hello").contains("surprise");
+        assertThat(new LongestWordPair("You're", "WONDERFUL").toString()).contains("You're").contains("WONDERFUL");
     }
 }

@@ -18,4 +18,12 @@ public class StringObjectTest {
         assertThat(new StringObject("bla-bla-bla@42").getString()).isEqualTo("bla-bla-bla@42");
         assertThat(new StringObject("Who's afraid of big bad wolf?").getString()).isEqualTo("Who's afraid of big bad wolf?");
     }
+
+    @Test
+    public void toString_withConstructor() throws Exception {
+        assertThat(new StringObject(null).toString()).isNotEmpty();
+        assertThat(new StringObject("").toString()).isNotEmpty();
+        assertThat(new StringObject("bla-bla-bla@42").toString()).contains("bla-bla-bla@42");
+        assertThat(new StringObject("Who's afraid of big bad wolf?").toString()).contains("Who's afraid of big bad wolf?");
+    }
 }
