@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="300">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>%d{ISO8601} %-5p [%c{1.}] (%t) - %m%n</pattern>
+            </PatternLayout>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
+            </Filters>
+        </Console>
+        <Console name="STDERR" target="SYSTEM_ERR">
+            <PatternLayout>
+                <pattern>%d{ISO8601} %-5p [%c{1.}] (%t) - %m%n</pattern>
+            </PatternLayout>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT"/>
+            </Filters>
+        </Console>
+        <Async name="ASYNC">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="STDERR"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache" level="INFO" additivity="false">
+            <AppenderRef ref="ASYNC"/>
+        </Logger>
+        <Root level="DEBUG">
+            <AppenderRef ref="ASYNC"/>
+        </Root>
+    </Loggers>
+</Configuration>
