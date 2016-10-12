@@ -31,7 +31,12 @@ public class LongestWordSorter implements StringSorter<LongestWordPair> {
     @Override
     public LongestWordPair transform(String string) {
         Assert.hasText(string, "Empty text is not supported as it's not comparable");
-        return new LongestWordPair(string, this.getLongestWord(string));
+        LongestWordPair.Builder builder = LongestWordPair.builder();
+        builder.withString(string);
+        String longestWord = this.getLongestWord(string);
+        builder.withLongestWordString(longestWord);
+        builder.withLongestWord(longestWord.length());
+        return builder.build();
     }
 
     @Override

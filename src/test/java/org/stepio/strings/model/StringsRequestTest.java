@@ -16,21 +16,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StringsRequestTest {
 
     @Test
-    public void getStrings_withSetter() throws Exception {
-        StringsRequest request = new StringsRequest();
-        assertThat(request.getStrings()).isNull();
-        request.setStrings(null);
-        assertThat(request.getStrings()).isNull();
-        request.setStrings(Collections.emptyList());
-        assertThat(request.getStrings()).isNotNull().isEmpty();
-        request.setStrings(Collections.singletonList("Hello, world!"));
-        assertThat(request.getStrings()).isEqualTo(Collections.singletonList("Hello, world!"));
-        List<String> list = new ArrayList<>();
+    public void getStrings_withBuilder() throws Exception {
+        assertThat(StringsRequest.create(null).getStrings()).isNull();
+        List<String> list = Collections.emptyList();
+        assertThat(StringsRequest.create(list).getStrings()).isNotNull().isEmpty();
+        list = Collections.singletonList("Hello, world!");
+        assertThat(StringsRequest.create(list).getStrings()).isEqualTo(list);
+        list = new ArrayList<>();
         list.add("See no evil");
         list.add("Hear no evil");
         list.add("Speak no evil");
-        request.setStrings(list);
-        assertThat(request.getStrings()).isEqualTo(list);
+        assertThat(StringsRequest.create(list).getStrings()).isEqualTo(list);
     }
 }
-

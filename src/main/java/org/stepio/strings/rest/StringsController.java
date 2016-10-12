@@ -30,7 +30,7 @@ public class StringsController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    protected StringSorter sorter;
+    protected StringSorter<LongestWordPair> sorter;
 
     /**
      * Reads from JSON collection containing strings, sorts the input strings by the longest word contained in the string and feeds the output into JSON collection formatter,
@@ -47,9 +47,10 @@ public class StringsController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> validateResults(@RequestBody StringsRequest stringsList) {
+    public ResponseEntity<?> sortList(@RequestBody StringsRequest stringsList) {
         List<LongestWordPair> sortedList = this.sorter.sort(stringsList.getStrings());
-        return ResponseEntity.status(HttpStatus.OK).body(new StringsResponse(sortedList));
+        StringsResponse<LongestWordPair> response = StringsResponse.create(sortedList);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     /**
@@ -61,6 +62,6 @@ public class StringsController {
     @ExceptionHandler
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
         this.log.warn("Request validation failed", ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.builder().withMessage(ex.getMessage()).build());
     }
 }

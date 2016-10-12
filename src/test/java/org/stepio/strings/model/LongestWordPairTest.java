@@ -12,37 +12,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LongestWordPairTest {
 
     @Test
-    public void getString_withConstructor() throws Exception {
-        assertThat(new LongestWordPair(null, null).getString()).isNull();
-        assertThat(new LongestWordPair("", null).getString()).isNotNull().isEmpty();
-        assertThat(new LongestWordPair("bla-bla-bla@42", null).getString()).isEqualTo("bla-bla-bla@42");
-        assertThat(new LongestWordPair("I see you", null).getString()).isEqualTo("I see you");
+    public void getString_withBuilder() throws Exception {
+        assertThat(LongestWordPair.builder().build().getString()).isNull();
+        assertThat(LongestWordPair.builder().withString("").build().getString()).isNotNull().isEmpty();
+        assertThat(LongestWordPair.builder().withString("bla-bla-bla@42").build().getString()).isEqualTo("bla-bla-bla@42");
+        assertThat(LongestWordPair.builder().withString("I see you").build().getString()).isEqualTo("I see you");
     }
 
     @Test
-    public void getLongestWordString_withConstructor() throws Exception {
-        assertThat(new LongestWordPair(null, null).getLongestWordString()).isEqualTo(null);
-        assertThat(new LongestWordPair(null, "").getLongestWordString()).isNotNull().isEqualTo("");
-        assertThat(new LongestWordPair(null, "hello").getLongestWordString()).isEqualTo("hello");
-        assertThat(new LongestWordPair(null, "surprise").getLongestWordString()).isEqualTo("surprise");
-        assertThat(new LongestWordPair(null, "You'll").getLongestWordString()).isEqualTo("You'll");
+    public void getLongestWordString_withBuilder() throws Exception {
+        assertThat(LongestWordPair.builder().build().getLongestWordString()).isNull();
+        assertThat(LongestWordPair.builder().withLongestWordString("").build().getLongestWordString()).isNotNull().isEmpty();
+        assertThat(LongestWordPair.builder().withLongestWordString("hello").build().getLongestWordString()).isEqualTo("hello");
+        assertThat(LongestWordPair.builder().withLongestWordString("surprise").build().getLongestWordString()).isEqualTo("surprise");
+        assertThat(LongestWordPair.builder().withLongestWordString("You'll").build().getLongestWordString()).isEqualTo("You'll");
     }
 
     @Test
-    public void getLongestWord_withConstructor() throws Exception {
-        assertThat(new LongestWordPair(null, null).getLongestWord()).isEqualTo(0);
-        assertThat(new LongestWordPair(null, "").getLongestWord()).isEqualTo(0);
-        assertThat(new LongestWordPair(null, "hello").getLongestWord()).isEqualTo(5);
-        assertThat(new LongestWordPair(null, "surprise").getLongestWord()).isEqualTo(8);
-        assertThat(new LongestWordPair(null, "You're").getLongestWord()).isEqualTo(6);
-        assertThat(new LongestWordPair(null, "WONDERFUL").getLongestWord()).isEqualTo(9);
-    }
-
-    @Test
-    public void toString_withConstructor() throws Exception {
-        assertThat(new LongestWordPair(null, null).toString()).isNotEmpty();
-        assertThat(new LongestWordPair(null, "").toString()).isNotEmpty();
-        assertThat(new LongestWordPair("hello", "surprise").toString()).contains("hello").contains("surprise");
-        assertThat(new LongestWordPair("You're", "WONDERFUL").toString()).contains("You're").contains("WONDERFUL");
+    public void getLongestWord_withBuilder() throws Exception {
+        assertThat(LongestWordPair.builder().build().getLongestWord()).isEqualTo(0);
+        assertThat(LongestWordPair.builder().withLongestWord(0).build().getLongestWord()).isEqualTo(0);
+        assertThat(LongestWordPair.builder().withLongestWord(5).build().getLongestWord()).isEqualTo(5);
+        assertThat(LongestWordPair.builder().withLongestWord(8).build().getLongestWord()).isEqualTo(8);
+        assertThat(LongestWordPair.builder().withLongestWord(6).build().getLongestWord()).isEqualTo(6);
     }
 }

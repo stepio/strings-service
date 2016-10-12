@@ -23,6 +23,11 @@ public class LongestWordSorterTest extends ApplicationTests {
     private LongestWordSorter sorter;
 
     @Test
+    public void resultSize_isEqualTo5() {
+        assertThat(this.sorter.resultSize).isEqualTo(5);
+    }
+
+    @Test
     public void getLongestWord_withEmpty() {
         assertThatThrownBy(() -> this.sorter.getLongestWord(null))
                 .isInstanceOf(IllegalArgumentException.class).hasMessageContaining("Empty text is not supported as it's not comparable");
@@ -52,13 +57,20 @@ public class LongestWordSorterTest extends ApplicationTests {
 
     @Test
     public void transform_withDummy() {
-        assertThat(this.sorter.transform("Sound boy proceed to blast into the galaxy")).isEqualTo(new LongestWordPair("Sound boy proceed to blast into the galaxy", "proceed"));
-        assertThat(this.sorter.transform("Go back rocket man into the sky you'll see")).isEqualTo(new LongestWordPair("Go back rocket man into the sky you'll see", "you'll"));
-        assertThat(this.sorter.transform("Hear it all the time, come back rewind")).isEqualTo(new LongestWordPair("Hear it all the time, come back rewind", "rewind"));
-        assertThat(this.sorter.transform("Aliens are watching up in the sky")).isEqualTo(new LongestWordPair("Aliens are watching up in the sky", "watching"));
-        assertThat(this.sorter.transform("Sound boy process to blast into the galaxy")).isEqualTo(new LongestWordPair("Sound boy process to blast into the galaxy", "process"));
-        assertThat(this.sorter.transform("No one gonna harm you")).isEqualTo(new LongestWordPair("No one gonna harm you", "gonna"));
-        assertThat(this.sorter.transform("They all want you to play I watch the birds of prey")).isEqualTo(new LongestWordPair("They all want you to play I watch the birds of prey", "watch"));
+        assertThat(this.sorter.transform("Sound boy proceed to blast into the galaxy"))
+                .isEqualTo(LongestWordPair.builder().withString("Sound boy proceed to blast into the galaxy").withLongestWordString("proceed").withLongestWord(7).build());
+        assertThat(this.sorter.transform("Go back rocket man into the sky you'll see"))
+                .isEqualTo(LongestWordPair.builder().withString("Go back rocket man into the sky you'll see").withLongestWordString("you'll").withLongestWord(6).build());
+        assertThat(this.sorter.transform("Hear it all the time, come back rewind"))
+                .isEqualTo(LongestWordPair.builder().withString("Hear it all the time, come back rewind").withLongestWordString("rewind").withLongestWord(6).build());
+        assertThat(this.sorter.transform("Aliens are watching up in the sky"))
+                .isEqualTo(LongestWordPair.builder().withString("Aliens are watching up in the sky").withLongestWordString("watching").withLongestWord(8).build());
+        assertThat(this.sorter.transform("Sound boy process to blast into the galaxy"))
+                .isEqualTo(LongestWordPair.builder().withString("Sound boy process to blast into the galaxy").withLongestWordString("process").withLongestWord(7).build());
+        assertThat(this.sorter.transform("No one gonna harm you"))
+                .isEqualTo(LongestWordPair.builder().withString("No one gonna harm you").withLongestWordString("gonna").withLongestWord(5).build());
+        assertThat(this.sorter.transform("They all want you to play I watch the birds of prey"))
+                .isEqualTo(LongestWordPair.builder().withString("They all want you to play I watch the birds of prey").withLongestWordString("watch").withLongestWord(5).build());
     }
 
     @Test

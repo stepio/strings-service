@@ -12,18 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StringObjectTest {
 
     @Test
-    public void getString_withConstructor() throws Exception {
-        assertThat(new StringObject(null).getString()).isNull();
-        assertThat(new StringObject("").getString()).isNotNull().isEmpty();
-        assertThat(new StringObject("bla-bla-bla@42").getString()).isEqualTo("bla-bla-bla@42");
-        assertThat(new StringObject("Who's afraid of big bad wolf?").getString()).isEqualTo("Who's afraid of big bad wolf?");
-    }
-
-    @Test
-    public void toString_withConstructor() throws Exception {
-        assertThat(new StringObject(null).toString()).isNotEmpty();
-        assertThat(new StringObject("").toString()).isNotEmpty();
-        assertThat(new StringObject("bla-bla-bla@42").toString()).contains("bla-bla-bla@42");
-        assertThat(new StringObject("Who's afraid of big bad wolf?").toString()).contains("Who's afraid of big bad wolf?");
+    public void getString_withBuilder() throws Exception {
+        assertThat(StringObject.builder().build().getString()).isNull();
+        assertThat(StringObject.builder().withString("").build().getString()).isNotNull().isEmpty();
+        assertThat(StringObject.builder().withString("bla-bla-bla@42").build().getString()).isEqualTo("bla-bla-bla@42");
+        assertThat(StringObject.builder().withString("Who's afraid of big bad wolf?").build().getString()).isEqualTo("Who's afraid of big bad wolf?");
     }
 }

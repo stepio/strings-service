@@ -16,15 +16,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StringsResponseTest {
 
     @Test
-    public void getStrings_withConstructor() throws Exception {
-        assertThat(new StringsResponse(null).getStrings()).isNull();
-        assertThat(new StringsResponse(Collections.emptyList()).getStrings()).isNotNull().isEmpty();
-        assertThat(new StringsResponse(Collections.singletonList(new StringObject("Hello, world!"))).getStrings())
-                .isEqualTo(Collections.singletonList(new StringObject("Hello, world!")));
-        List<StringObject> list = new ArrayList<>();
-        list.add(new StringObject("See no evil"));
-        list.add(new StringObject("Hear no evil"));
-        list.add(new StringObject("Speak no evil"));
-        assertThat(new StringsResponse(list).getStrings()).isEqualTo(list);
+    public void getResult_withCreator() throws Exception {
+        List<LongestWordPair> list = null;
+        assertThat(StringsResponse.create(list).getResult()).isNull();
+        list = Collections.emptyList();
+        assertThat(StringsResponse.create(list).getResult()).isNotNull().isEmpty();
+        list = Collections.singletonList(LongestWordPair.builder().withString("Hello, world!").build());
+        assertThat(StringsResponse.create(list).getResult()).isEqualTo(list);
+        list = new ArrayList<>();
+        list.add(LongestWordPair.builder().withString("See no evil").build());
+        list.add(LongestWordPair.builder().withString("Hear no evil").build());
+        list.add(LongestWordPair.builder().withString("Speak no evil").build());
+        assertThat(StringsResponse.create(list).getResult()).isEqualTo(list);
     }
 }

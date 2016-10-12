@@ -1,8 +1,8 @@
 package org.stepio.strings.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * DTO for sorting strings according to the longest word in the string.
@@ -10,19 +10,14 @@ import lombok.ToString;
  * @author stepio
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@JsonDeserialize(builder = LongestWordPair.Builder.class)
 public class LongestWordPair extends StringObject {
 
     @JsonIgnore
     protected String longestWordString;
     protected int longestWord;
 
-    public LongestWordPair(String string, String longestWordString) {
-        super(string);
-        this.longestWordString = longestWordString;
-        if (this.longestWordString != null) {
-            this.longestWord = this.longestWordString.length();
-        }
+    protected LongestWordPair() {
     }
 
     public String getLongestWordString() {
@@ -31,5 +26,38 @@ public class LongestWordPair extends StringObject {
 
     public int getLongestWord() {
         return this.longestWord;
+    }
+
+    /**
+     * Creates new builder.
+     *
+     * @return builder
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends StringObject.Builder {
+
+        protected final LongestWordPair target = new LongestWordPair();
+
+        public Builder withString(final String string) {
+            this.target.string = string;
+            return this;
+        }
+
+        public Builder withLongestWordString(final String longestWordString) {
+            this.target.longestWordString = longestWordString;
+            return this;
+        }
+
+        public Builder withLongestWord(final int longestWord) {
+            this.target.longestWord = longestWord;
+            return this;
+        }
+
+        public LongestWordPair build() {
+            return this.target;
+        }
     }
 }

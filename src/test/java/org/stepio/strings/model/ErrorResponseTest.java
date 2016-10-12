@@ -12,10 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ErrorResponseTest {
 
     @Test
-    public void getMessage_withConstructor() throws Exception {
-        assertThat(new ErrorResponse(null).getMessage()).isNull();
-        assertThat(new ErrorResponse("").getMessage()).isNotNull().isEmpty();
-        assertThat(new ErrorResponse("bla-bla-bla@42").getMessage()).isEqualTo("bla-bla-bla@42");
-        assertThat(new ErrorResponse("Wo-hoo, it's an exception!").getMessage()).isEqualTo("Wo-hoo, it's an exception!");
+    public void getMessage_withBuilder() throws Exception {
+        assertThat(ErrorResponse.builder().build().getMessage()).isNull();
+        assertThat(ErrorResponse.builder().withMessage("").build().getMessage()).isNotNull().isEmpty();
+        assertThat(ErrorResponse.builder().withMessage("bla-bla-bla@42").build().getMessage()).isEqualTo("bla-bla-bla@42");
+        assertThat(ErrorResponse.builder().withMessage("Wo-hoo, it's an exception!").build().getMessage()).
+                isEqualTo("Wo-hoo, it's an exception!");
     }
 }

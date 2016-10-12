@@ -1,7 +1,7 @@
 package org.stepio.strings.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Basic DTO for sorting strings following the needed algorithm.
@@ -9,16 +9,38 @@ import lombok.ToString;
  * @author stepio
  */
 @EqualsAndHashCode
-@ToString
+@JsonDeserialize(builder = StringObject.Builder.class)
 public class StringObject {
 
     protected String string;
 
-    public StringObject(String string) {
-        this.string = string;
+    protected StringObject() {
     }
 
     public String getString() {
         return this.string;
+    }
+
+    /**
+     * Creates new builder.
+     *
+     * @return builder
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        protected final StringObject target = new StringObject();
+
+        public Builder withString(final String string) {
+            this.target.string = string;
+            return this;
+        }
+
+        public StringObject build() {
+            return this.target;
+        }
     }
 }
